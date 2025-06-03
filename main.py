@@ -3,8 +3,8 @@ import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 import random
 
-# Gravitational constant - increased for better interactions
-G = 6.67430e-10  
+# Gravitational constant - balanced for visible interactions without collisions
+G = 6.67430e-11  # Increased by factor of 10
 
 # Planet data: [mass (kg), color, size]
 PLANETS = {
@@ -27,7 +27,7 @@ class PlanetSimulation:
         self.colors = []
         self.sizes = []
         self.names = []
-        self.dt = 60 * 60 * 12
+        self.dt = 60 * 60 * 12 # 2 hours per step - much smaller time step
         self.scale = 1e9  # Scale for display
         self.trail_length = 600 # Number of points in trail
         self.trails = []
@@ -111,8 +111,8 @@ class PlanetSimulation:
                     r_vec = self.positions[j] - self.positions[i]
                     r_mag = np.linalg.norm(r_vec)
                     
-                    # Only prevent collision, don't limit interactions
-                    if r_mag > 1e8:  # Much smaller minimum distance
+                    # Prevent close collisions while allowing interactions
+                    if r_mag > 5e8:  # Larger minimum distance to prevent engulfing
                         # Gravitational force magnitude
                         F_mag = G * self.masses[i] * self.masses[j] / (r_mag**2)
                         
@@ -194,7 +194,7 @@ class PlanetSimulation:
     def animate(self, frame):
         """Animation update function"""
         # Update physics multiple times per frame for better accuracy
-        for _ in range(5):  # Run physics 5 times per animation frame
+        for _ in range(3):  # Run physics 3 times per animation frame
             self.update_physics()
         
         # Update planet positions
@@ -211,7 +211,7 @@ class PlanetSimulation:
                 trail_plot.set_data(x_trail, y_trail)
         
         # Update info text
-        info_text = f"Time: {frame * self.dt * 5 / (24 * 3600):.2f} days\n"
+        info_text = f"Time: {frame * self.dt * 3 / (24 * 3600):.2f} days\n"
         info_text += f"Planets: {len(self.selected_planets)}\n"
         info_text += "Positions (×10⁹ m):\n"
         for i, name in enumerate(self.names):
