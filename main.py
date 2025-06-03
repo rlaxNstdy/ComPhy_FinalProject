@@ -3,8 +3,8 @@ import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 import random
 
-# Gravitational constant - balanced for visible interactions without collisions
-G = 6.67430e-11  # Increased by factor of 10
+# Gravitational constant 
+G = 6.67430e-11 
 
 # Planet data: [mass (kg), color, size]
 PLANETS = {
@@ -27,9 +27,9 @@ class PlanetSimulation:
         self.colors = []
         self.sizes = []
         self.names = []
-        self.dt = 60 * 60 * 12 # 2 hours per step - much smaller time step
+        self.dt = 60 * 60 * 12 # 2 hours per step
         self.scale = 1e9  # Scale for display
-        self.trail_length = 600 # Number of points in trail
+        self.trail_length = 600 
         self.trails = []
         
     def select_planets(self):
@@ -112,7 +112,7 @@ class PlanetSimulation:
                     r_mag = np.linalg.norm(r_vec)
                     
                     # Prevent close collisions while allowing interactions
-                    if r_mag > 5e8:  # Larger minimum distance to prevent engulfing
+                    if r_mag > 5e8:  
                         # Gravitational force magnitude
                         F_mag = G * self.masses[i] * self.masses[j] / (r_mag**2)
                         
