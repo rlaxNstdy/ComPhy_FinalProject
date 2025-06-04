@@ -27,7 +27,7 @@ class PlanetSimulation:
         self.colors = []
         self.sizes = []
         self.names = []
-        self.dt = 60 * 60 * 12 # 2 hours per step
+        self.dt = 60 * 60 * 6 # 2 hours per step
         self.scale = 1e9  # Scale for display
         self.trail_length = 600 
         self.trails = []
